@@ -1,0 +1,11 @@
+/node_modules
+.env
+
+.vscode
+.DS_Store
+.idea
+
+/terraform/iatlaspl.code-workspace
+/terraform/terraform.tfvars
+/terraform/.terraform/
+/terraform/*.tfstate*
