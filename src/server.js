@@ -6,7 +6,7 @@ import studentsRouter from './routers/students.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 
-const PORT = Number(getEnvVar('PORT', '8181'));
+const PORT = Number(getEnvVar('PORT', '8989'));
 
 export const setupServer = () => {
   const app = express();

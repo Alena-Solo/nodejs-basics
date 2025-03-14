@@ -7,13 +7,27 @@ import {
   updateStudentController,
   deleteStudentController,
 } from '../controllers/students.js';
+import { validateBody } from '../middlewares/validateBody.js';
+import {
+  createStudentSchema,
+  updateStudentSchema,
+} from '../validation/students.js';
+import { isValidId } from '../middlewares/isValidId.js';
 
 const router = Router();
 
 router.get('/students', ctrlWrapper(getStudentsController));
-router.get('/students/:studentId', ctrlWrapper(getStudentsByIdController));
-router.post('/students', ctrlWrapper(createStudentController));
-router.patch('/students/:studentId', ctrlWrapper(updateStudentController));
+router.get('/:studentId', isValidId, ctrlWrapper(getStudentsByIdController));
+router.post(
+  '/',
+  validateBody(createStudentSchema),
+  ctrlWrapper(createStudentController),
+);
+router.patch(
+  '/students/:studentId',
+  validateBody(updateStudentSchema),
+  ctrlWrapper(updateStudentController),
+);
 router.delete('/students/:studentId', ctrlWrapper(deleteStudentController));
 
 export default router;
