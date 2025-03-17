@@ -8,12 +8,21 @@ import {
   deleteStudent,
 } from '../services/students.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+import { parseFilterParams } from '../utils/parseFilterParams.js';
 
 export const getStudentsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
+
+  const { sortBy, sortOrder } = parsePaginationParams(req.query);
+
+  const filter = parseFilterParams(req.query);
+
   const students = await getAllStudents({
     page,
     perPage,
+    sortBy,
+    sortOrder,
+    filter,
   });
 
   res.status(200).json({
