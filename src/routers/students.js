@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import {
   getStudentsController,
-  getStudentByIdController,
+  getStudentsByIdController,
   createStudentController,
   deleteStudentController,
   upsertStudentController,
@@ -20,7 +20,7 @@ const router = Router();
 
 router.get('/', ctrlWrapper(getStudentsController));
 
-router.get('/:studentId', isValidId, ctrlWrapper(getStudentByIdController));
+router.get('/:studentId', isValidId, ctrlWrapper(getStudentsByIdController));
 
 router.post(
   '/',

@@ -12,9 +12,7 @@ import { parseFilterParams } from '../utils/parseFilterParams.js';
 
 export const getStudentsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
-
   const { sortBy, sortOrder } = parsePaginationParams(req.query);
-
   const filter = parseFilterParams(req.query);
 
   const students = await getAllStudents({
@@ -67,7 +65,7 @@ export const updateStudentController = async (req, res, next) => {
 
   res.status(200).json({
     status: 200,
-    message: `Successfully updated a student!`,
+    message: 'Successfully updated a student!',
     data: result,
   });
 };
@@ -81,4 +79,31 @@ export const deleteStudentController = async (req, res, next) => {
   }
 
   res.status(204).send();
+};
+
+export const patchStudentController = async (req, res, next) => {
+  const { studentId } = req.params;
+  const result = await updateStudent(studentId, req.body);
+
+  if (!result) {
+    return next(createHttpError(404, 'Student not found'));
+  }
+
+  res.status(200).json({
+    status: 200,
+    message: 'Successfully patched a student!',
+  });
+};
+
+export const upsertStudentController = async (req, res, next) => {
+  const { studentId } = req.params;
+  const student =
+    (await updateStudent(studentId, req.body)) ||
+    (await createStudent(req.body));
+
+  res.status(200).json({
+    status: 200,
+    message: 'Successfully upserted a student!',
+    data: student,
+  });
 };
