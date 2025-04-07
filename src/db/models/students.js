@@ -6,6 +6,10 @@ const studentsSchema = new Schema(
       type: String,
       required: true,
     },
+    age: {
+      type: Number,
+      required: true,
+    },
     phoneNumber: {
       type: String,
       required: true,
@@ -23,6 +27,26 @@ const studentsSchema = new Schema(
       enum: ['work', 'home', 'personal'],
       default: 'personal',
     },
+    gender: {
+      type: String,
+      required: true,
+      enum: ['male', 'female', 'other'],
+    },
+    avgMark: {
+      type: Number,
+      required: true,
+    },
+    onDuty: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    parentId: {
+      // нова властивість
+      type: Schema.Types.ObjectId,
+      ref: 'users',
+    },
+    photo: { type: String },
   },
   {
     timestamps: true,
